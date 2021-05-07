@@ -1,0 +1,12 @@
+gym[atari]
+mujoco-py
+tensorboard
+tensorboardX
+matplotlib
+ipython
+moviepy
+pyvirtualdisplay
+torch
+opencv-python
+ipdb
+box2d-py
