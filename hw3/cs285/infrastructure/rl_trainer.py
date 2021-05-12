@@ -135,7 +135,7 @@ class RL_Trainer(object):
         self.start_time = time.time()
 
         print_period = 1000 if isinstance(self.agent, DQNAgent) else 1
-        all_logs = []
+        
         for itr in range(n_iter):
             if itr % print_period == 0:
                 print("\n\n********** Iteration %i ************"%itr)
@@ -182,7 +182,7 @@ class RL_Trainer(object):
             # train agent (using sampled data from replay buffer)
             if itr % print_period == 0:
                 print("\nTraining agent...")
-            all_logs.append(self.train_agent())
+            all_logs = (self.train_agent())
 
             # log/save
             if self.logvideo or self.logmetrics:
@@ -216,17 +216,18 @@ class RL_Trainer(object):
 
     def train_agent(self):
         # TODO: get this from Piazza
+        all_logs = []
         for train_itr in range(self.params['num_agent_train_steps_per_iter']):
 
             obs_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = self.agent.sample(self.params['train_batch_size'])
             log = self.agent.train(obs_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)  
-             
-        return log
+            all_logs.append(log)
+
+        return all_logs
     ####################################
     ####################################
     def perform_dqn_logging(self, all_logs):
         last_log = all_logs[-1]
-
         episode_rewards = get_wrapper_by_name(self.env, "Monitor").get_episode_rewards()
         if len(episode_rewards) > 0:
             self.mean_episode_reward = np.mean(episode_rewards[-100:])
