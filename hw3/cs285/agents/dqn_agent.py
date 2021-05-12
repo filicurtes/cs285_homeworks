@@ -57,7 +57,7 @@ class DQNAgent(object):
             # HINT: take random action 
                 # with probability eps (see np.random.random())
                 # OR if your current step number (see self.t) is less that self.learning_starts
-            action = np.random.randint(self.num_actions) # take random action
+            action = self.env.action_space.sample() # take random action
         else:
             # HINT: Your actor will take in multiple previous observations ("frames") in order
                 # to deal with the partial observability of the environment. Get the most recent 
