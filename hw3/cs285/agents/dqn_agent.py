@@ -104,7 +104,7 @@ class DQNAgent(object):
             log = self.critic.update(
                 ob_no, ac_na, next_ob_no, re_n, terminal_n
             )
-            print(1,log)
+            
             # TODO update the target network periodically 
             # HINT: your critic already has this functionality implemented
             if self.num_param_updates % self.target_update_freq == 0:
